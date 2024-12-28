@@ -9,6 +9,11 @@ SettingsModbusRTU::SettingsModbusRTU(QWidget *parent,ModbusCommSettings * settin
 {
     ui->setupUi(this);
 
+    // Setup userdata of parity dropdown for opening serial port
+    ui->cmbParity->setItemData(0, "N");
+    ui->cmbParity->setItemData(1, "O");
+    ui->cmbParity->setItemData(2, "E");
+
     /* device name is needed only in Linux */
     #ifdef Q_OS_WIN32
         ui->cmbDev->setDisabled(true);
@@ -56,7 +61,7 @@ void SettingsModbusRTU::showEvent(QShowEvent * event)
         ui->cmbBaud->setCurrentIndex(ui->cmbBaud->findText(m_settings->baud()));
         ui->cmbDataBits->setCurrentIndex(ui->cmbDataBits->findText(m_settings->dataBits()));
         ui->cmbStopBits->setCurrentIndex(ui->cmbStopBits->findText(m_settings->stopBits()));
-        ui->cmbParity->setCurrentIndex(ui->cmbParity->findText(m_settings->parity()));
+        ui->cmbParity->setCurrentIndex(ui->cmbParity->findData(m_settings->parity()));
         ui->cmbRTS->setCurrentIndex(ui->cmbRTS->findText(m_settings->RTS()));
     }
 
@@ -73,7 +78,7 @@ void SettingsModbusRTU::changesAccepted()
         m_settings->setBaud(ui->cmbBaud->currentText());
         m_settings->setDataBits(ui->cmbDataBits->currentText());
         m_settings->setStopBits(ui->cmbStopBits->currentText());
-        m_settings->setParity(ui->cmbParity->currentText());
+        m_settings->setParity(ui->cmbParity->currentData(Qt::UserRole).toString());
         m_settings->setRTS((QString)ui->cmbRTS->currentText());
     }
 
