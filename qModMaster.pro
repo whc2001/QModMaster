@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui network
+QT += widgets
+QT += core5compat
 
 TARGET = qModMaster
 TEMPLATE = app
