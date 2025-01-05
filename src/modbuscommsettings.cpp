@@ -328,7 +328,7 @@ void ModbusCommSettings::load(QSettings *s)
         m_stopBits = s->value("RTU/StopBits").toString();
 
     if (s->value("RTU/Parity").isNull())
-        m_parity = "None";
+        m_parity = "N";
     else
         m_parity = s->value("RTU/Parity").toString();
 
